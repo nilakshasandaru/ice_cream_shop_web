@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            padding-top: 50px;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(185, 17, 17, 0.163);
+            background: linear-gradient(to right, #5cecf6, #04417ee5);
+        }
+        .btn-primary {
+            background-color: #bb33b5;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #feb47b;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .product-selection {
+            margin-bottom: 20px;
+        }
+        .confirmation-message {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2 class="text-center text-white mb-4">Customer Order Details</h2>
+        <form id="orderForm">
+            <div class="mb-3">
+                <label for="name" class="form-label text-white">Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label text-white">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label text-white">Delivery Address</label>
+                <textarea class="form-control" id="address" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label text-white">Phone Number</label>
+                <input type="text" class="form-control" id="phone" required>
+            </div>
+
+            <!-- Product Selection Section -->
+            <div class="product-selection">
+                <label class="form-label text-white">Select Products</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Vanilla Ice Cream" id="product1">
+                    <label class="form-check-label" for="product1">Vanilla Ice Cream (Rs.899/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty1" min="1" value="1" style="width: 100px;">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Chocolate Ice Cream" id="product2">
+                    <label class="form-check-label" for="product2">Chocolate Ice Cream (Rs.999/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty2" min="1" value="1" style="width: 100px;">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Strawberry Ice Cream" id="product3">
+                    <label class="form-check-label" for="product3">Strawberry Ice Cream (Rs.899/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty3" min="1" value="1" style="width: 100px;">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Blueberry Ice Cream" id="product4">
+                    <label class="form-check-label" for="product4">Blueberry Ice Cream (Rs.899/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty4" min="1" value="1" style="width: 100px;">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Coffee Ice Cream" id="product5">
+                    <label class="form-check-label" for="product5">Coffee Ice Cream (Rs.899/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty5" min="1" value="1" style="width: 100px;">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="Cookies Ice Cream" id="product6">
+                    <label class="form-check-label" for="product6">Cookies Ice Cream (Rs.899/=)</label>
+                    <input type="number" class="form-control mt-2" id="qty6" min="1" value="1" style="width: 100px;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit Order</button>
+            
+            <!-- Link back to index.html -->
+<a href="index.html" class="btn btn-secondary w-100 mt-3">Back</a>
+            <!-- Link back to the previous page -->
+
+        </form>
+
+        <!-- Confirmation Message -->
+        <div id="confirmation" class="confirmation-message" style="display: none;">
+            <h4>Order Successful!</h4>
+            <p>Your order will be delivered to your home within 12 hours.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Collecting selected products and quantities
+            let selectedProducts = [];
+            let quantities = [];
+
+            if (document.getElementById('product1').checked) {
+                selectedProducts.push('Vanilla Ice Cream');
+                quantities.push(document.getElementById('qty1').value);
+            }
+            if (document.getElementById('product2').checked) {
+                selectedProducts.push('Chocolate Ice Cream');
+                quantities.push(document.getElementById('qty2').value);
+            }
+            if (document.getElementById('product3').checked) {
+                selectedProducts.push('Strawberry Ice Cream');
+                quantities.push(document.getElementById('qty3').value);
+            }
+            if (document.getElementById('product4').checked) {
+                selectedProducts.push('Blueberry Ice Cream');
+                quantities.push(document.getElementById('qty4').value);
+            }
+            if (document.getElementById('product5').checked) {
+                selectedProducts.push('Coffee Ice Cream');
+                quantities.push(document.getElementById('qty5').value);
+            }
+            if (document.getElementById('product6').checked) {
+                selectedProducts.push('Cookies Ice Cream');
+                quantities.push(document.getElementById('qty6').value);
+            }
+
+            if (selectedProducts.length > 0) {
+                // Show confirmation message
+                let confirmationText = "<h4>Order Successful!</h4><p>Your order will be delivered to your home within 12 hours.</p><ul>";
+                for (let i = 0; i < selectedProducts.length; i++) {
+                    confirmationText += `<li>${selectedProducts[i]} - Quantity: ${quantities[i]}</li>`;
+                }
+                confirmationText += "</ul>";
+
+                document.getElementById('confirmation').innerHTML = confirmationText;
+                document.getElementById('confirmation').style.display = 'block';
+                document.getElementById('orderForm').reset();
+            } else {
+                alert('Please select at least one product.');
+            }
+        });
+    </script>
+</body>
+</html>

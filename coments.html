@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Comments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            color: #4cf1d9;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #5d04da;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .customer-code {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .star-rating i {
+            font-size: 24px;
+            color: #00ffff;
+            cursor: pointer;
+        }
+        .star-rating i:hover,
+        .star-rating i.selected {
+            color: #ffa500;
+        }
+        .btn-back {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="text-center mb-4">Customer Feedback</h2>
+    
+    <!-- Display unique customer code -->
+    <div class="customer-code text-center">
+        Your Customer Code: <span id="customer-code"></span>
+    </div>
+
+    <!-- Feedback form -->
+    <form id="feedback-form">
+        <div class="mb-3">
+            <label for="email" class="form-label">Enter your Email:</label>
+            <input type="email" class="form-control" id="email" placeholder="example@domain.com" required>
+        </div>
+        <div class="mb-3">
+            <label for="comments" class="form-label">Enter your Comments:</label>
+            <textarea class="form-control" id="comments" rows="4" placeholder="Your comments..." required></textarea>
+        </div>
+
+        <!-- Star rating system -->
+        <div class="mb-3">
+            <label class="form-label">Rate Us:</label>
+            <div class="star-rating">
+                <i class="bx bxs-star" data-value="1"></i>
+                <i class="bx bxs-star" data-value="2"></i>
+                <i class="bx bxs-star" data-value="3"></i>
+                <i class="bx bxs-star" data-value="4"></i>
+                <i class="bx bxs-star" data-value="5"></i>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit Feedback</button>
+        <a href="javascript:history.back()" class="btn btn-secondary w-100 btn-back">Back</a>
+    </form>
+</div>
+
+<script>
+    // Generate a unique customer code (random 8-character alphanumeric string)
+    function generateCustomerCode() {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let code = '';
+        for (let i = 0; i < 8; i++) {
+            code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return code;
+    }
+
+    // Display the customer code on the page
+    document.getElementById('customer-code').textContent = generateCustomerCode();
+
+    // Star rating system
+    const stars = document.querySelectorAll('.star-rating i');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('click', function() {
+            selectedRating = this.getAttribute('data-value');
+            stars.forEach(s => s.classList.remove('selected'));
+            this.classList.add('selected');
+            for (let i = 0; i < selectedRating; i++) {
+                stars[i].classList.add('selected');
+            }
+        });
+    });
+
+    // Handle form submission
+    document.getElementById('feedback-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const comments = document.getElementById('comments').value;
+
+        // Show feedback summary
+        alert(`Thank you for your feedback!\n\nEmail: ${email}\nComments: ${comments}\nRating: ${selectedRating} stars`);
+        this.reset(); // Reset the form
+
+        // Reset star rating
+        stars.forEach(s => s.classList.remove('selected'));
+    });
+</script>
+
+</body>
+</html>
